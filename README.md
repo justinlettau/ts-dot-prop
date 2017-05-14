@@ -48,9 +48,9 @@ dot.has(obj, 'foo.bar');
 // => true
 
 /**
- * Delete
+ * Remove
  */
-dot.delete(obj, 'foo.bar');
+dot.remove(obj, 'foo.bar');
 // => { foo: {} }
 
 ```
