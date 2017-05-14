@@ -1,4 +1,4 @@
-import { isDefined, isObject } from 'ts-util-is';
+import { isDefined, isObject, isString } from 'ts-util-is';
 
 /**
  * Get object property value.
@@ -8,7 +8,11 @@ import { isDefined, isObject } from 'ts-util-is';
  * @param value Optional default value to return if path is not found.
  */
 export function get(obj: Object, path: string, value?: any): any {
-    let parts: string[] = path.split('.');
+    if (!isObject(obj) || !isString(path)) {
+        return;
+    }
+
+    const parts: string[] = path.split('.');
 
     try {
         return parts.reduce((prev: any, curr: any) => prev[curr], obj);
@@ -25,10 +29,14 @@ export function get(obj: Object, path: string, value?: any): any {
  * @param value Value to set at path.
  */
 export function set(obj: Object, path: string, value: any): void {
-    let parts: string[] = path.split('.');
+    if (!isObject(obj) || !isString(path)) {
+        return;
+    }
+
+    const parts: string[] = path.split('.');
 
     for (let i = 0; i < parts.length; i++) {
-        let t: string = parts[i];
+        const t: string = parts[i];
 
         if (!obj[t]) {
             obj[t] = {};
@@ -49,7 +57,7 @@ export function set(obj: Object, path: string, value: any): void {
  * @param path Dot notation string.
  */
 export function has(obj: Object, path: string): boolean {
-    let value: any = get(obj, path);
+    const value: any = get(obj, path);
     return isDefined(value);
 }
 
@@ -60,10 +68,14 @@ export function has(obj: Object, path: string): boolean {
  * @param path Dot notation string.
  */
 export function remove(obj: Object, path: string): boolean {
-    let parts: string[] = path.split('.');
+    if (!isObject(obj) || !isString(path)) {
+        return;
+    }
+
+    const parts: string[] = path.split('.');
 
     for (let i = 0; i < parts.length; i++) {
-        let t: string = parts[i];
+        const t: string = parts[i];
 
         if (i === (parts.length - 1)) {
             return delete obj[t];
