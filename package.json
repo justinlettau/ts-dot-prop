@@ -1,0 +1,48 @@
+{
+  "name": "ts-dot-prop",
+  "version": "1.0.0",
+  "description": "TypeScript utility to transform nested objects using a dot notation path.",
+  "keywords": [
+    "access",
+    "del",
+    "delete",
+    "dot notation",
+    "dot",
+    "dotty",
+    "get",
+    "notation",
+    "obj",
+    "object",
+    "path",
+    "prop",
+    "property",
+    "set",
+    "transform",
+    "typescript"
+  ],
+  "author": {
+    "name": "Justin Lettau",
+    "email": "me@justinlettau.com",
+    "url": "http://justinlettau.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/justinlettau/ts-dot-prop",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/justinlettau/ts-dot-prop"
+  },
+  "bugs": {
+    "url": "https://github.com/justinlettau/ts-dot-prop"
+  },
+  "scripts": {
+    "test": "tslint index.ts -c ./tslint.json"
+  },
+  "devDependencies": {
+    "tslint": "^5.2.0",
+    "tslint-config-unicorn-science": "^1.0.0",
+    "typescript": "^2.3.2"
+  },
+  "dependencies": {
+    "ts-util-is": "^0.1.2"
+  }
+}
