@@ -43,6 +43,6 @@
     "typescript": "^2.3.2"
   },
   "dependencies": {
-    "ts-util-is": "^0.1.2"
+    "ts-util-is": "^1.0.0"
   }
 }
