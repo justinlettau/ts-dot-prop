@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "outDir": "dist",
+        "sourceMap": false,
+        "target": "es5"
+    },
+    "include": [
+        "index.ts"
+    ]
+}
