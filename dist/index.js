@@ -10,7 +10,7 @@ var ts_util_is_1 = require("ts-util-is");
  */
 function get(obj, path, value) {
     if (!ts_util_is_1.isObject(obj) || !ts_util_is_1.isString(path)) {
-        return;
+        return (ts_util_is_1.isDefined(value) ? value : undefined);
     }
     var parts = path.split('.');
     try {
