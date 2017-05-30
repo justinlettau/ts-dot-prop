@@ -9,7 +9,7 @@ import { isDefined, isObject, isString } from 'ts-util-is';
  */
 export function get(obj: Object, path: string, value?: any): any {
     if (!isObject(obj) || !isString(path)) {
-        return;
+        return (isDefined(value) ? value : undefined);
     }
 
     const parts: string[] = path.split('.');
