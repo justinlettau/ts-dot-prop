@@ -9,15 +9,17 @@ var ts_util_is_1 = require("ts-util-is");
  * @param value Optional default value to return if path is not found.
  */
 function get(obj, path, value) {
+    var defaultValue = (ts_util_is_1.isDefined(value) ? value : undefined);
     if (!ts_util_is_1.isObject(obj) || !ts_util_is_1.isString(path)) {
-        return (ts_util_is_1.isDefined(value) ? value : undefined);
+        return defaultValue;
     }
     var parts = path.split('.');
     try {
-        return parts.reduce(function (prev, curr) { return prev[curr]; }, obj);
+        var value_1 = parts.reduce(function (prev, curr) { return prev[curr]; }, obj);
+        return (ts_util_is_1.isUndefined(value_1) ? defaultValue : value_1);
     }
     catch (error) {
-        return (ts_util_is_1.isDefined(value) ? value : undefined);
+        return defaultValue;
     }
 }
 exports.get = get;

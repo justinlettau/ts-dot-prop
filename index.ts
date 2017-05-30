@@ -1,4 +1,4 @@
-import { isDefined, isObject, isString } from 'ts-util-is';
+import { isUndefined, isDefined, isObject, isString } from 'ts-util-is';
 
 /**
  * Get object property value.
@@ -8,16 +8,19 @@ import { isDefined, isObject, isString } from 'ts-util-is';
  * @param value Optional default value to return if path is not found.
  */
 export function get(obj: Object, path: string, value?: any): any {
+    const defaultValue: any = (isDefined(value) ? value : undefined);
+
     if (!isObject(obj) || !isString(path)) {
-        return (isDefined(value) ? value : undefined);
+        return defaultValue;
     }
 
     const parts: string[] = path.split('.');
 
     try {
-        return parts.reduce((prev: any, curr: any) => prev[curr], obj);
+        const value: any =  parts.reduce((prev: any, curr: any) => prev[curr], obj);
+        return (isUndefined(value) ? defaultValue : value);
     } catch (error) {
-        return (isDefined(value) ? value : undefined);
+        return defaultValue;
     }
 }
 
