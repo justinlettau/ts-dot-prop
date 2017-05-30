@@ -86,7 +86,7 @@ export function remove(obj: Object, path: string): boolean {
             obj = obj[t];
         }
 
-        if (!isObject(obj[t])) {
+        if (!isObject(obj)) {
             return false;
         }
     }

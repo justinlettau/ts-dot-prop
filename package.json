@@ -35,14 +35,18 @@
     "url": "https://github.com/justinlettau/ts-dot-prop"
   },
   "scripts": {
-    "test": "tslint -c ./tslint.json -p ./tsconfig.json",
+    "test": "jasmine JASMINE_CONFIG_PATH=jasmine.json",
+    "lint": "tslint -c ./tslint.json -p ./tsconfig.json",
     "build": "tsc -p ./tsconfig.json",
-    "prepublish": "npm run test && npm run build"
+    "prepublish": "npm run lint && npm run test && npm run build"
   },
   "devDependencies": {
+    "@types/jasmine": "^2.5.47",
+    "jasmine": "^2.6.0",
+    "ts-node": "^3.0.4",
     "tslint": "^5.3.2",
-    "tslint-config-unicorn-science": "^1.0.0",
-    "typescript": "^2.3.3"
+    "tslint-config-unicorn-science": "^1.0.1",
+    "typescript": "^2.3.4"
   },
   "dependencies": {
     "ts-util-is": "^1.0.1"
