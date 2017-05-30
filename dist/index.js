@@ -79,7 +79,7 @@ function remove(obj, path) {
         else {
             obj = obj[t];
         }
-        if (!ts_util_is_1.isObject(obj[t])) {
+        if (!ts_util_is_1.isObject(obj)) {
             return false;
         }
     }
