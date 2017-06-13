@@ -2,6 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var ts_util_is_1 = require("ts-util-is");
 /**
+ * Regex to find array index notation (example: `myArray[0]`).
+ */
+var indexer = /([\w]+)\[([\d]+)\]/;
+/**
  * Get object property value.
  *
  * @param obj Object to get value from.
@@ -14,13 +18,23 @@ function get(obj, path, value) {
         return defaultValue;
     }
     var parts = path.split('.');
-    try {
-        var value_1 = parts.reduce(function (prev, curr) { return prev[curr]; }, obj);
-        return (ts_util_is_1.isUndefined(value_1) ? defaultValue : value_1);
+    for (var _i = 0, parts_1 = parts; _i < parts_1.length; _i++) {
+        var key = parts_1[_i];
+        var match = key.match(indexer);
+        if (match) {
+            // array index notation
+            var array = match[1];
+            var index = match[2];
+            obj = obj[array] && obj[array][index];
+        }
+        else {
+            obj = obj[key];
+        }
+        if (ts_util_is_1.isUndefined(obj)) {
+            return defaultValue;
+        }
     }
-    catch (error) {
-        return defaultValue;
-    }
+    return ts_util_is_1.isUndefined(obj) ? defaultValue : obj;
 }
 exports.get = get;
 /**
@@ -35,16 +49,37 @@ function set(obj, path, value) {
         return;
     }
     var parts = path.split('.');
-    for (var i = 0; i < parts.length; i++) {
-        var t = parts[i];
-        if (!obj[t]) {
-            obj[t] = {};
-        }
-        if (i === (parts.length - 1)) {
-            obj[t] = value;
+    var last = parts[parts.length - 1];
+    for (var _i = 0, parts_2 = parts; _i < parts_2.length; _i++) {
+        var key = parts_2[_i];
+        var match = key.match(indexer);
+        if (match) {
+            // array index notation
+            var array = match[1];
+            var index = parseInt(match[2], 10);
+            if (ts_util_is_1.isUndefined(obj[array])) {
+                obj = [];
+            }
+            else {
+                obj = obj[array];
+            }
+            if (ts_util_is_1.isUndefined(obj[index])) {
+                obj = {};
+            }
+            else {
+                obj = obj[index];
+            }
         }
         else {
-            obj = obj[t];
+            if (ts_util_is_1.isUndefined(obj[key])) {
+                obj[key] = {};
+            }
+            if (key === last) {
+                obj[key] = value;
+            }
+            else {
+                obj = obj[key];
+            }
         }
     }
 }
@@ -71,13 +106,21 @@ function remove(obj, path) {
         return;
     }
     var parts = path.split('.');
-    for (var i = 0; i < parts.length; i++) {
-        var t = parts[i];
-        if (i === (parts.length - 1)) {
-            return delete obj[t];
+    var last = parts[parts.length - 1];
+    for (var _i = 0, parts_3 = parts; _i < parts_3.length; _i++) {
+        var key = parts_3[_i];
+        if (key === last) {
+            return delete obj[key];
+        }
+        var match = key.match(indexer);
+        if (match) {
+            // array index notation
+            var array = match[1];
+            var index = match[2];
+            obj = obj[array] && obj[array][index];
         }
         else {
-            obj = obj[t];
+            obj = obj[key];
         }
         if (!ts_util_is_1.isObject(obj)) {
             return false;

@@ -15,42 +15,59 @@ npm install ts-dot-prop
 import * as dot from 'ts-dot-prop';
 
 const obj = {
-    foo: {
-        bar: 'unicorn'
-    }
+    foo: 'bar',
+    state: {
+        name: 'New York'
+    },
+    fruit: [{
+        type: 'Apple',
+        color: 'red'
+    }]
 };
 
 /**
  * Get
  */
-dot.get(obj, 'foo.bar');
-// => 'unicorn'
+dot.get(obj, 'state.name');
+// => 'New York'
 
-dot.get(obj, 'foo.nothing.deep');
+dot.get(obj, 'fruit[0].type');
+// => 'Apple'
+
+dot.get(obj, 'state.capital');
 // => undefined
 
-dot.get(obj, 'foo.nothing.deep', 'default value');
-// => 'default value'
+dot.get(obj, 'state.population.total', 'not found');
+// => 'not found'
 
 /**
  * Set
  */
-dot.set(obj, 'foo.bar', 'b');
-// => { foo: { bar: 'b'} }
+dot.set(obj, 'state.name', 'Paris');
+// => state.name === 'Paris'
 
-dot.set(obj, 'foo.baz', 'x');
-// => { foo: { bar: 'b', baz: 'x'} }
+dot.set(obj, 'state.capital', 'Albany');
+// => state.capital === 'Albany'
+
+dot.set(obj, 'fruit[0].color', 'Green');
+// => fruit[0].color === 'Green'
 
 /**
  * Has
  */
-dot.has(obj, 'foo.bar');
+dot.has(obj, 'state.name');
+// => true
+
+dot.has(obj, 'fruit[0].type');
 // => true
 
 /**
  * Remove
  */
-dot.remove(obj, 'foo.bar');
-// => { foo: {} }
+dot.remove(obj, 'state.name');
+// => state.name === undefined
+
+dot.remove(obj, 'fruit[0].color');
+// => fruit[0].color === undefined
 
 ```

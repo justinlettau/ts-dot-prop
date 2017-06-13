@@ -1,6 +1,11 @@
 import { isUndefined, isDefined, isObject, isString } from 'ts-util-is';
 
 /**
+ * Regex to find array index notation (example: `myArray[0]`).
+ */
+const indexer: RegExp = /([\w]+)\[([\d]+)\]/;
+
+/**
  * Get object property value.
  *
  * @param obj Object to get value from.
@@ -16,12 +21,25 @@ export function get(obj: Object, path: string, value?: any): any {
 
     const parts: string[] = path.split('.');
 
-    try {
-        const value: any =  parts.reduce((prev: any, curr: any) => prev[curr], obj);
-        return (isUndefined(value) ? defaultValue : value);
-    } catch (error) {
-        return defaultValue;
+    for (let key of parts) {
+        const match: string[] = key.match(indexer);
+
+        if (match) {
+            // array index notation
+            const array: string = match[1];
+            const index: string = match[2];
+
+            obj = obj[array] && obj[array][index];
+        } else {
+            obj = obj[key];
+        }
+
+        if (isUndefined(obj)) {
+            return defaultValue;
+        }
     }
+
+    return isUndefined(obj) ? defaultValue : obj;
 }
 
 /**
@@ -37,18 +55,37 @@ export function set(obj: Object, path: string, value: any): void {
     }
 
     const parts: string[] = path.split('.');
+    const last: string  = parts[parts.length - 1];
 
-    for (let i = 0; i < parts.length; i++) {
-        const t: string = parts[i];
+    for (let key of parts) {
+        const match: string[] = key.match(indexer);
 
-        if (!obj[t]) {
-            obj[t] = {};
-        }
+        if (match) {
+            // array index notation
+            const array: string = match[1];
+            const index: number = parseInt(match[2], 10);
 
-        if (i === (parts.length - 1)) {
-            obj[t] = value;
+            if (isUndefined(obj[array])) {
+                obj = [];
+            } else {
+                obj = obj[array];
+            }
+
+            if (isUndefined(obj[index])) {
+                obj = {};
+            } else {
+                obj = obj[index];
+            }
         } else {
-            obj = obj[t];
+            if (isUndefined(obj[key])) {
+                obj[key] = {};
+            }
+
+            if (key === last) {
+                obj[key] = value;
+            } else {
+                obj = obj[key];
+            }
         }
     }
 }
@@ -76,14 +113,23 @@ export function remove(obj: Object, path: string): boolean {
     }
 
     const parts: string[] = path.split('.');
+    const last: string = parts[parts.length - 1];
 
-    for (let i = 0; i < parts.length; i++) {
-        const t: string = parts[i];
+    for (let key of parts) {
+        if (key === last) {
+            return delete obj[key];
+        }
 
-        if (i === (parts.length - 1)) {
-            return delete obj[t];
+        const match: string[] = key.match(indexer);
+
+        if (match) {
+            // array index notation
+            const array: string = match[1];
+            const index: string = match[2];
+
+            obj = obj[array] && obj[array][index];
         } else {
-            obj = obj[t];
+            obj = obj[key];
         }
 
         if (!isObject(obj)) {
