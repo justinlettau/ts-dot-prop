@@ -70,4 +70,10 @@ dot.remove(obj, 'state.name');
 dot.remove(obj, 'fruit[0].color');
 // => fruit[0].color === undefined
 
+/**
+ * Paths
+ */
+dot.paths(obj);
+// => ['foo', 'state.name', 'fruit']
+
 ```

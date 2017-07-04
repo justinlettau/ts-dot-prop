@@ -128,3 +128,42 @@ function remove(obj, path) {
     }
 }
 exports.remove = remove;
+/**
+ * Get all dot notations paths from an object.
+ *
+ * @param obj Object to get paths for.
+ */
+function paths(obj) {
+    return _paths(obj, []);
+}
+exports.paths = paths;
+/**
+ * Internal recursive method to navigate assemble possible paths.
+ *
+ * @param obj Object to get paths for.
+ * @param lead Array of leading parts for the current iteration.
+ */
+function _paths(obj, lead) {
+    var output = [];
+    if (!ts_util_is_1.isObject(obj) || ts_util_is_1.isArray(obj)) {
+        // non-objects and array items not supported
+        return [];
+    }
+    for (var key in obj) {
+        if (ts_util_is_1.isUndefined(obj[key])) {
+            continue;
+        }
+        else if (ts_util_is_1.isObject(obj[key]) && !ts_util_is_1.isArray(obj[key])) {
+            // recurse to child object
+            lead.push(key);
+            output = output.concat(_paths(obj[key], lead));
+            // reset path lead for next object
+            lead = [];
+        }
+        else {
+            var path = (lead.length ? lead.join('.') + "." + key : key);
+            output.push(path);
+        }
+    }
+    return output;
+}

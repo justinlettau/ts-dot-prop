@@ -1,4 +1,4 @@
-import { isUndefined, isDefined, isObject, isString } from 'ts-util-is';
+import { isUndefined, isDefined, isObject, isString, isArray } from 'ts-util-is';
 
 /**
  * Regex to find array index notation (example: `myArray[0]`).
@@ -55,7 +55,7 @@ export function set(obj: Object, path: string, value: any): void {
     }
 
     const parts: string[] = path.split('.');
-    const last: string  = parts[parts.length - 1];
+    const last: string = parts[parts.length - 1];
 
     for (let key of parts) {
         const match: string[] = key.match(indexer);
@@ -136,4 +136,47 @@ export function remove(obj: Object, path: string): boolean {
             return false;
         }
     }
+}
+
+/**
+ * Get all dot notations paths from an object.
+ *
+ * @param obj Object to get paths for.
+ */
+export function paths(obj: Object): string[] {
+    return _paths(obj, []);
+}
+
+/**
+ * Internal recursive method to navigate assemble possible paths.
+ *
+ * @param obj Object to get paths for.
+ * @param lead Array of leading parts for the current iteration.
+ */
+function _paths(obj: Object, lead: string[]): string[] {
+    let output: string[] = [];
+
+    if (!isObject(obj) || isArray(obj)) {
+        // non-objects and array items not supported
+        return [];
+    }
+
+    for (let key in obj) {
+        if (isUndefined(obj[key])) {
+            continue;
+        } else if (isObject(obj[key]) && !isArray(obj[key])) {
+
+            // recurse to child object
+            lead.push(key);
+            output = output.concat(_paths(obj[key], lead));
+
+            // reset path lead for next object
+            lead = [];
+        } else {
+            const path: string = (lead.length ? `${lead.join('.')}.${key}` : key);
+            output.push(path);
+        }
+    }
+
+    return output;
 }

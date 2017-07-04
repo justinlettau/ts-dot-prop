@@ -98,4 +98,17 @@ describe('ts-dot-prop methods', () => {
         expect(obj.fruit[0].color).toEqual(undefined);
     });
 
+    /**
+     * Paths
+     */
+    it('should return an array of strings', () => {
+        const value: string[] = dot.paths(obj);
+        expect(value).toEqual(['foo', 'state.name', 'fruit']);
+    });
+
+    it('should return an empty array', () => {
+        const value: string[] = dot.paths({});
+        expect(value).toEqual([]);
+    });
+
 });

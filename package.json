@@ -42,13 +42,13 @@
     "prepublish": "npm run lint && npm run test && npm run build"
   },
   "devDependencies": {
-    "@types/jasmine": "2.5.52",
+    "@types/jasmine": "2.5.53",
     "jasmine": "2.6.0",
-    "standard-version": "4.0.0",
-    "ts-node": "3.0.6",
+    "standard-version": "4.2.0",
+    "ts-node": "3.1.0",
     "tslint": "5.4.3",
-    "tslint-config-unicorn-science": "1.0.1",
-    "typescript": "2.3.4"
+    "tslint-config-unicorn-science": "1.0.3",
+    "typescript": "2.4.1"
   },
   "dependencies": {
     "ts-util-is": "1.0.3"
