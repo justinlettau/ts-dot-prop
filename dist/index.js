@@ -145,15 +145,15 @@ exports.paths = paths;
  */
 function _paths(obj, lead) {
     var output = [];
-    if (!ts_util_is_1.isObject(obj) || ts_util_is_1.isArray(obj)) {
-        // non-objects and array items not supported
+    if (!ts_util_is_1.isPlainObject(obj)) {
+        // non-plain (like arrays) objects not supported
         return [];
     }
     for (var key in obj) {
         if (ts_util_is_1.isUndefined(obj[key])) {
             continue;
         }
-        else if (ts_util_is_1.isObject(obj[key]) && !ts_util_is_1.isArray(obj[key])) {
+        else if (ts_util_is_1.isPlainObject(obj[key])) {
             // recurse to child object
             lead.push(key);
             output = output.concat(_paths(obj[key], lead));

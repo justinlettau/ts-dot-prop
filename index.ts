@@ -1,4 +1,4 @@
-import { isUndefined, isDefined, isObject, isString, isArray } from 'ts-util-is';
+import { isUndefined, isDefined, isObject, isPlainObject, isString, isArray } from 'ts-util-is';
 
 /**
  * Regex to find array index notation (example: `myArray[0]`).
@@ -156,15 +156,15 @@ export function paths(obj: Object): string[] {
 function _paths(obj: Object, lead: string[]): string[] {
     let output: string[] = [];
 
-    if (!isObject(obj) || isArray(obj)) {
-        // non-objects and array items not supported
+    if (!isPlainObject(obj)) {
+        // non-plain (like arrays) objects not supported
         return [];
     }
 
     for (let key in obj) {
         if (isUndefined(obj[key])) {
             continue;
-        } else if (isObject(obj[key]) && !isArray(obj[key])) {
+        } else if (isPlainObject(obj[key])) {
 
             // recurse to child object
             lead.push(key);

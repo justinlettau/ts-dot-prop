@@ -39,7 +39,7 @@
     "lint": "tslint -c ./tslint.json -p ./tsconfig.json",
     "build": "tsc -p ./tsconfig.json",
     "release": "standard-version",
-    "prepublish": "npm run lint && npm run test && npm run build"
+    "prepublishOnly": "npm run lint && npm run test && npm run build"
   },
   "devDependencies": {
     "@types/jasmine": "2.5.53",
@@ -51,6 +51,6 @@
     "typescript": "2.4.1"
   },
   "dependencies": {
-    "ts-util-is": "1.0.3"
+    "ts-util-is": "1.1.0"
   }
 }
