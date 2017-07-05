@@ -30,8 +30,8 @@ function get(obj, path, value) {
         else {
             obj = obj[key];
         }
-        if (ts_util_is_1.isUndefined(obj)) {
-            return defaultValue;
+        if (ts_util_is_1.isUndefined(obj) || ts_util_is_1.isNull(ts_util_is_1.isNull)) {
+            break;
         }
     }
     return ts_util_is_1.isUndefined(obj) ? defaultValue : obj;

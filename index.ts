@@ -1,4 +1,4 @@
-import { isUndefined, isDefined, isObject, isPlainObject, isString, isArray } from 'ts-util-is';
+import { isUndefined, isDefined, isObject, isPlainObject, isString, isArray, isNull } from 'ts-util-is';
 
 /**
  * Regex to find array index notation (example: `myArray[0]`).
@@ -34,8 +34,8 @@ export function get(obj: Object, path: string, value?: any): any {
             obj = obj[key];
         }
 
-        if (isUndefined(obj)) {
-            return defaultValue;
+        if (isUndefined(obj) || isNull(isNull)) {
+            break;
         }
     }
 
