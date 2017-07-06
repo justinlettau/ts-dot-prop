@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var ts_util_is_1 = require("ts-util-is");
 /**
- * Regex to find array index notation (example: `myArray[0]`).
+ * Regex to test if a string is a valid array index key.
  */
-var indexer = /([\w]+)\[([\d]+)\]/;
+var indexer = /[0-9]+/;
 /**
  * Get object property value.
  *
@@ -17,22 +17,23 @@ function get(obj, path, value) {
     if (!ts_util_is_1.isObject(obj) || !ts_util_is_1.isString(path)) {
         return defaultValue;
     }
-    var parts = path.split('.');
-    for (var _i = 0, parts_1 = parts; _i < parts_1.length; _i++) {
-        var key = parts_1[_i];
-        var match = key.match(indexer);
-        if (match) {
-            // array index notation
-            var array = match[1];
-            var index = match[2];
-            obj = obj[array] && obj[array][index];
+    var parts = getParts(path);
+    var _loop_1 = function (key) {
+        if (ts_util_is_1.isArray(obj) && !indexer.test(key)) {
+            obj = obj.map(function (item) { return ts_util_is_1.isUndefined(item) || ts_util_is_1.isNull(ts_util_is_1.isNull) ? item : item[key]; });
         }
         else {
             obj = obj[key];
         }
         if (ts_util_is_1.isUndefined(obj) || ts_util_is_1.isNull(ts_util_is_1.isNull)) {
-            break;
+            return "break";
         }
+    };
+    for (var _i = 0, parts_1 = parts; _i < parts_1.length; _i++) {
+        var key = parts_1[_i];
+        var state_1 = _loop_1(key);
+        if (state_1 === "break")
+            break;
     }
     return ts_util_is_1.isUndefined(obj) ? defaultValue : obj;
 }
@@ -48,39 +49,18 @@ function set(obj, path, value) {
     if (!ts_util_is_1.isObject(obj) || !ts_util_is_1.isString(path)) {
         return;
     }
-    var parts = path.split('.');
+    var parts = getParts(path);
     var last = parts[parts.length - 1];
     for (var _i = 0, parts_2 = parts; _i < parts_2.length; _i++) {
         var key = parts_2[_i];
-        var match = key.match(indexer);
-        if (match) {
-            // array index notation
-            var array = match[1];
-            var index = parseInt(match[2], 10);
-            if (ts_util_is_1.isUndefined(obj[array])) {
-                obj = [];
-            }
-            else {
-                obj = obj[array];
-            }
-            if (ts_util_is_1.isUndefined(obj[index])) {
-                obj = {};
-            }
-            else {
-                obj = obj[index];
-            }
+        if (key === last) {
+            obj[key] = value;
+            return;
         }
-        else {
-            if (ts_util_is_1.isUndefined(obj[key])) {
-                obj[key] = {};
-            }
-            if (key === last) {
-                obj[key] = value;
-            }
-            else {
-                obj = obj[key];
-            }
+        if (ts_util_is_1.isUndefined(obj[key])) {
+            obj[key] = {};
         }
+        obj = obj[key];
     }
 }
 exports.set = set;
@@ -105,23 +85,14 @@ function remove(obj, path) {
     if (!ts_util_is_1.isObject(obj) || !ts_util_is_1.isString(path)) {
         return;
     }
-    var parts = path.split('.');
+    var parts = getParts(path);
     var last = parts[parts.length - 1];
     for (var _i = 0, parts_3 = parts; _i < parts_3.length; _i++) {
         var key = parts_3[_i];
         if (key === last) {
             return delete obj[key];
         }
-        var match = key.match(indexer);
-        if (match) {
-            // array index notation
-            var array = match[1];
-            var index = match[2];
-            obj = obj[array] && obj[array][index];
-        }
-        else {
-            obj = obj[key];
-        }
+        obj = obj[key];
         if (!ts_util_is_1.isObject(obj)) {
             return false;
         }
@@ -137,6 +108,19 @@ function paths(obj) {
     return _paths(obj, []);
 }
 exports.paths = paths;
+/**
+ * Split a dot notation string into parts.
+ *
+ * Examples:
+ * - `obj.value` => `['obj', 'value']`
+ * - `obj.ary[0].value` => `['obj', 'ary', '0', 'value']`
+ * - `obj.ary[*].value` => `['obj', 'ary', 'value']`
+ *
+ * @param path Dot notation string.
+ */
+function getParts(path) {
+    return path.split(/[\.]|(?:\[(\d|\*)\])/).filter(function (item) { return !!item && item !== '*'; });
+}
 /**
  * Internal recursive method to navigate assemble possible paths.
  *
@@ -167,3 +151,4 @@ function _paths(obj, lead) {
     }
     return output;
 }
+//# sourceMappingURL=index.js.map

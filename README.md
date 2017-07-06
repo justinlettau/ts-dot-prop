@@ -22,6 +22,9 @@ const obj = {
     fruit: [{
         type: 'Apple',
         color: 'red'
+    }, {
+        type: 'Mango',
+        color: 'orange'
     }]
 };
 
@@ -33,6 +36,9 @@ dot.get(obj, 'state.name');
 
 dot.get(obj, 'fruit[0].type');
 // => 'Apple'
+
+dot.get(obj, 'fruit[*].color');
+// => ['red', 'orange']
 
 dot.get(obj, 'state.capital');
 // => undefined

@@ -11,7 +11,10 @@ describe('ts-dot-prop methods', () => {
             },
             fruit: [{
                 type: 'Apple',
-                color: 'Red'
+                color: 'red'
+            }, {
+                type: 'Mango',
+                color: 'orange'
             }]
         };
     })
@@ -32,6 +35,11 @@ describe('ts-dot-prop methods', () => {
     it('should return the array value when present', () => {
         const value: any = dot.get(obj, 'fruit[0].type');
         expect(value).toEqual('Apple');
+    });
+
+    it('should return an array of values when present', () => {
+        const value: string[] = dot.get(obj, 'fruit[*].color');
+        expect(value).toEqual(['red', 'orange']);
     });
 
     it('should return undefined when value not present', () => {

@@ -1,9 +1,17 @@
-import { isUndefined, isDefined, isObject, isPlainObject, isString, isArray, isNull } from 'ts-util-is';
+import {
+    isArray,
+    isDefined,
+    isNull,
+    isObject,
+    isPlainObject,
+    isString,
+    isUndefined
+} from 'ts-util-is';
 
 /**
- * Regex to find array index notation (example: `myArray[0]`).
+ * Regex to test if a string is a valid array index key.
  */
-const indexer: RegExp = /([\w]+)\[([\d]+)\]/;
+const indexer: RegExp = /[0-9]+/;
 
 /**
  * Get object property value.
@@ -19,17 +27,11 @@ export function get(obj: Object, path: string, value?: any): any {
         return defaultValue;
     }
 
-    const parts: string[] = path.split('.');
+    const parts: string[] = getParts(path);
 
     for (let key of parts) {
-        const match: string[] = key.match(indexer);
-
-        if (match) {
-            // array index notation
-            const array: string = match[1];
-            const index: string = match[2];
-
-            obj = obj[array] && obj[array][index];
+        if (isArray(obj) && !indexer.test(key)) {
+            obj = obj.map(item => isUndefined(item) || isNull(isNull) ? item : item[key]);
         } else {
             obj = obj[key];
         }
@@ -54,39 +56,20 @@ export function set(obj: Object, path: string, value: any): void {
         return;
     }
 
-    const parts: string[] = path.split('.');
+    const parts: string[] = getParts(path);
     const last: string = parts[parts.length - 1];
 
     for (let key of parts) {
-        const match: string[] = key.match(indexer);
-
-        if (match) {
-            // array index notation
-            const array: string = match[1];
-            const index: number = parseInt(match[2], 10);
-
-            if (isUndefined(obj[array])) {
-                obj = [];
-            } else {
-                obj = obj[array];
-            }
-
-            if (isUndefined(obj[index])) {
-                obj = {};
-            } else {
-                obj = obj[index];
-            }
-        } else {
-            if (isUndefined(obj[key])) {
-                obj[key] = {};
-            }
-
-            if (key === last) {
-                obj[key] = value;
-            } else {
-                obj = obj[key];
-            }
+        if (key === last) {
+            obj[key] = value;
+            return;
         }
+
+        if (isUndefined(obj[key])) {
+            obj[key] = {};
+        }
+
+        obj = obj[key];
     }
 }
 
@@ -112,7 +95,7 @@ export function remove(obj: Object, path: string): boolean {
         return;
     }
 
-    const parts: string[] = path.split('.');
+    const parts: string[] = getParts(path);
     const last: string = parts[parts.length - 1];
 
     for (let key of parts) {
@@ -120,17 +103,7 @@ export function remove(obj: Object, path: string): boolean {
             return delete obj[key];
         }
 
-        const match: string[] = key.match(indexer);
-
-        if (match) {
-            // array index notation
-            const array: string = match[1];
-            const index: string = match[2];
-
-            obj = obj[array] && obj[array][index];
-        } else {
-            obj = obj[key];
-        }
+        obj = obj[key];
 
         if (!isObject(obj)) {
             return false;
@@ -145,6 +118,20 @@ export function remove(obj: Object, path: string): boolean {
  */
 export function paths(obj: Object): string[] {
     return _paths(obj, []);
+}
+
+/**
+ * Split a dot notation string into parts.
+ *
+ * Examples:
+ * - `obj.value` => `['obj', 'value']`
+ * - `obj.ary[0].value` => `['obj', 'ary', '0', 'value']`
+ * - `obj.ary[*].value` => `['obj', 'ary', 'value']`
+ *
+ * @param path Dot notation string.
+ */
+function getParts(path: string): string[] {
+    return path.split(/[\.]|(?:\[(\d|\*)\])/).filter(item => !!item && item !== '*');
 }
 
 /**

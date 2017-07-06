@@ -3,7 +3,7 @@
         "module": "commonjs",
         "moduleResolution": "node",
         "outDir": "dist",
-        "sourceMap": false,
+        "sourceMap": true,
         "target": "es5"
     },
     "include": [
