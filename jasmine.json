@@ -1,6 +1,6 @@
 {
     "spec_files": [
-        "*.spec.ts"
+        "src/*.spec.ts"
     ],
     "helpers": [
         "node_modules/ts-node/register.js"

@@ -41,12 +41,13 @@
     "release": "standard-version",
     "prepublishOnly": "npm run lint && npm run test && npm run build"
   },
+  "main": "dist/index.js",
   "devDependencies": {
     "@types/jasmine": "2.5.53",
     "jasmine": "2.6.0",
     "standard-version": "4.2.0",
-    "ts-node": "3.1.0",
-    "tslint": "5.4.3",
+    "ts-node": "3.2.0",
+    "tslint": "5.5.0",
     "tslint-config-unicorn-science": "1.0.3",
     "typescript": "2.4.1"
   },
