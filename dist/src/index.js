@@ -20,12 +20,12 @@ function get(obj, path, value) {
     var parts = getParts(path);
     var _loop_1 = function (key) {
         if (ts_util_is_1.isArray(obj) && !indexer.test(key)) {
-            obj = obj.map(function (item) { return ts_util_is_1.isUndefined(item) || ts_util_is_1.isNull(ts_util_is_1.isNull) ? item : item[key]; });
+            obj = obj.map(function (item) { return ts_util_is_1.isUndefined(item) || ts_util_is_1.isNull(obj) ? item : item[key]; });
         }
         else {
             obj = obj[key];
         }
-        if (ts_util_is_1.isUndefined(obj) || ts_util_is_1.isNull(ts_util_is_1.isNull)) {
+        if (ts_util_is_1.isUndefined(obj) || ts_util_is_1.isNull(obj)) {
             return "break";
         }
     };

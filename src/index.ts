@@ -31,12 +31,12 @@ export function get(obj: Object, path: string, value?: any): any {
 
     for (let key of parts) {
         if (isArray(obj) && !indexer.test(key)) {
-            obj = obj.map(item => isUndefined(item) || isNull(isNull) ? item : item[key]);
+            obj = obj.map(item => isUndefined(item) || isNull(obj) ? item : item[key]);
         } else {
             obj = obj[key];
         }
 
-        if (isUndefined(obj) || isNull(isNull)) {
+        if (isUndefined(obj) || isNull(obj)) {
             break;
         }
     }
