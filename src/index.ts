@@ -20,7 +20,7 @@ const indexer: RegExp = /[0-9]+/;
  * @param path Dot notation string.
  * @param value Optional default value to return if path is not found.
  */
-export function get(obj: Object, path: string, value?: any): any {
+export function get(obj: object, path: string, value?: any): any {
     const defaultValue: any = (isDefined(value) ? value : undefined);
 
     if (!isObject(obj) || !isString(path)) {
@@ -29,7 +29,7 @@ export function get(obj: Object, path: string, value?: any): any {
 
     const parts: string[] = getParts(path);
 
-    for (let key of parts) {
+    for (const key of parts) {
         if (isArray(obj) && !indexer.test(key)) {
             obj = obj.map(item => isUndefined(item) || isNull(obj) ? item : item[key]);
         } else {
@@ -51,7 +51,7 @@ export function get(obj: Object, path: string, value?: any): any {
  * @param path Dot notation string.
  * @param value Value to set at path.
  */
-export function set(obj: Object, path: string, value: any): void {
+export function set(obj: object, path: string, value: any): void {
     if (!isObject(obj) || !isString(path)) {
         return;
     }
@@ -59,7 +59,7 @@ export function set(obj: Object, path: string, value: any): void {
     const parts: string[] = getParts(path);
     const last: string = parts[parts.length - 1];
 
-    for (let key of parts) {
+    for (const key of parts) {
         if (key === last) {
             obj[key] = value;
             return;
@@ -79,7 +79,7 @@ export function set(obj: Object, path: string, value: any): void {
  * @param obj Object to set value for.
  * @param path Dot notation string.
  */
-export function has(obj: Object, path: string): boolean {
+export function has(obj: object, path: string): boolean {
     const value: any = get(obj, path);
     return isDefined(value);
 }
@@ -90,7 +90,7 @@ export function has(obj: Object, path: string): boolean {
  * @param obj Object to set value for.
  * @param path Dot notation string.
  */
-export function remove(obj: Object, path: string): boolean {
+export function remove(obj: object, path: string): boolean {
     if (!isObject(obj) || !isString(path)) {
         return;
     }
@@ -98,7 +98,7 @@ export function remove(obj: Object, path: string): boolean {
     const parts: string[] = getParts(path);
     const last: string = parts[parts.length - 1];
 
-    for (let key of parts) {
+    for (const key of parts) {
         if (key === last) {
             return delete obj[key];
         }
@@ -116,7 +116,7 @@ export function remove(obj: Object, path: string): boolean {
  *
  * @param obj Object to get paths for.
  */
-export function paths(obj: Object): string[] {
+export function paths(obj: object): string[] {
     return _paths(obj, []);
 }
 
@@ -140,7 +140,7 @@ function getParts(path: string): string[] {
  * @param obj Object to get paths for.
  * @param lead Array of leading parts for the current iteration.
  */
-function _paths(obj: Object, lead: string[]): string[] {
+function _paths(obj: object, lead: string[]): string[] {
     let output: string[] = [];
 
     if (!isPlainObject(obj)) {
@@ -148,7 +148,7 @@ function _paths(obj: Object, lead: string[]): string[] {
         return [];
     }
 
-    for (let key in obj) {
+    for (const key in obj) {
         if (isUndefined(obj[key])) {
             continue;
         } else if (isPlainObject(obj[key])) {
