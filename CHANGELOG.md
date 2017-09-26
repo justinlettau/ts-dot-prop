@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/justinlettau/ts-dot-prop/compare/v1.3.3...v1.4.0) (2017-09-26)
+
+
+### Features
+
+* add array wildcard support for `set` ([62da08b](https://github.com/justinlettau/ts-dot-prop/commit/62da08b))
+
+
+
 <a name="1.3.3"></a>
 ## [1.3.3](https://github.com/justinlettau/ts-dot-prop/compare/v1.3.2...v1.3.3) (2017-07-19)
 
