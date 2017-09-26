@@ -19,6 +19,9 @@ function get(obj, path, value) {
     }
     var parts = getParts(path);
     var _loop_1 = function (key) {
+        if (key === '*') {
+            return "continue";
+        }
         if (ts_util_is_1.isArray(obj) && !indexer.test(key)) {
             obj = obj.map(function (item) { return ts_util_is_1.isUndefined(item) || ts_util_is_1.isNull(obj) ? item : item[key]; });
         }
@@ -50,11 +53,21 @@ function set(obj, path, value) {
         return;
     }
     var parts = getParts(path);
-    var last = parts[parts.length - 1];
-    for (var _i = 0, parts_2 = parts; _i < parts_2.length; _i++) {
-        var key = parts_2[_i];
-        if (key === last) {
+    var len = parts.length;
+    for (var i = 0; i < len; i++) {
+        var key = parts[i];
+        if (i === (len - 1)) {
+            // last part in path
             obj[key] = value;
+            return;
+        }
+        if (key === '*' && ts_util_is_1.isArray(obj)) {
+            var remaining = parts.slice(i + 1).join('.');
+            // recurse to array objects
+            for (var _i = 0, obj_1 = obj; _i < obj_1.length; _i++) {
+                var item = obj_1[_i];
+                set(item, remaining, value);
+            }
             return;
         }
         if (ts_util_is_1.isUndefined(obj[key])) {
@@ -86,12 +99,14 @@ function remove(obj, path) {
         return;
     }
     var parts = getParts(path);
-    var last = parts[parts.length - 1];
-    for (var _i = 0, parts_3 = parts; _i < parts_3.length; _i++) {
-        var key = parts_3[_i];
-        if (key === last) {
+    var len = parts.length;
+    for (var i = 0; i < len; i++) {
+        var key = parts[i];
+        if (i === (len - 1)) {
+            // last part in path
             return delete obj[key];
         }
+        // todo (jbl): support wildcard [*]
         obj = obj[key];
         if (!ts_util_is_1.isObject(obj)) {
             return false;
@@ -119,7 +134,7 @@ exports.paths = paths;
  * @param path Dot notation string.
  */
 function getParts(path) {
-    return path.split(/[\.]|(?:\[(\d|\*)\])/).filter(function (item) { return !!item && item !== '*'; });
+    return path.split(/[\.]|(?:\[(\d|\*)\])/).filter(function (item) { return !!item; });
 }
 /**
  * Internal recursive method to navigate assemble possible paths.

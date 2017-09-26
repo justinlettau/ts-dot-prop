@@ -58,6 +58,10 @@ dot.set(obj, 'state.capital', 'Albany');
 dot.set(obj, 'fruit[0].color', 'Green');
 // => fruit[0].color === 'Green'
 
+dot.set(obj, 'fruit[*].color', 'Yellow');
+// => fruit[0].color === 'Yellow'
+// => fruit[1].color === 'Yellow'
+
 /**
  * Has
  */

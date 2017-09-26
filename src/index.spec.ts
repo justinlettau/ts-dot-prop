@@ -70,6 +70,12 @@ describe('ts-dot-prop methods', () => {
         expect(obj.fruit[0].color).toEqual('Green');
     });
 
+    it('should set all array values when value exists', () => {
+        dot.set(obj, 'fruit[*].color', 'Yellow');
+        expect(obj.fruit[0].color).toEqual('Yellow');
+        expect(obj.fruit[1].color).toEqual('Yellow');
+    });
+
     /**
      * Has
      */

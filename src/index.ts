@@ -30,6 +30,11 @@ export function get(obj: object, path: string, value?: any): any {
     const parts: string[] = getParts(path);
 
     for (const key of parts) {
+        if (key === '*') {
+            // do nothing
+            continue;
+        }
+
         if (isArray(obj) && !indexer.test(key)) {
             obj = obj.map(item => isUndefined(item) || isNull(obj) ? item : item[key]);
         } else {
@@ -57,11 +62,25 @@ export function set(obj: object, path: string, value: any): void {
     }
 
     const parts: string[] = getParts(path);
-    const last: string = parts[parts.length - 1];
+    const len: number = parts.length;
 
-    for (const key of parts) {
-        if (key === last) {
+    for (let i = 0; i < len; i++) {
+        const key: string = parts[i];
+
+        if (i === (len - 1)) {
+            // last part in path
             obj[key] = value;
+            return;
+        }
+
+        if (key === '*' && isArray(obj)) {
+            const remaining: string = parts.slice(i + 1).join('.');
+
+            // recurse to array objects
+            for (const item of obj) {
+                set(item, remaining, value);
+            }
+
             return;
         }
 
@@ -96,12 +115,17 @@ export function remove(obj: object, path: string): boolean {
     }
 
     const parts: string[] = getParts(path);
-    const last: string = parts[parts.length - 1];
+    const len: number = parts.length;
 
-    for (const key of parts) {
-        if (key === last) {
+    for (let i = 0; i < len; i++) {
+        const key: string = parts[i];
+
+        if (i === (len - 1)) {
+            // last part in path
             return delete obj[key];
         }
+
+        // todo (jbl): support wildcard [*]
 
         obj = obj[key];
 
@@ -131,7 +155,7 @@ export function paths(obj: object): string[] {
  * @param path Dot notation string.
  */
 function getParts(path: string): string[] {
-    return path.split(/[\.]|(?:\[(\d|\*)\])/).filter(item => !!item && item !== '*');
+    return path.split(/[\.]|(?:\[(\d|\*)\])/).filter(item => !!item);
 }
 
 /**
