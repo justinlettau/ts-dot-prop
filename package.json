@@ -43,13 +43,13 @@
   "main": "dist/index.js",
   "types": "dist/index.d.js",
   "devDependencies": {
-    "@types/jasmine": "^2.5.53",
-    "jasmine": "^2.7.0",
+    "@types/jasmine": "^2.6.0",
+    "jasmine": "^2.8.0",
     "standard-version": "^4.2.0",
     "ts-node": "^3.3.0",
-    "tslint": "^5.6.0",
+    "tslint": "^5.7.0",
     "tslint-config-unicorn-science": "^1.1.7",
-    "typescript": "^2.4.2"
+    "typescript": "^2.5.2"
   },
   "dependencies": {
     "ts-util-is": "^1.1.2"

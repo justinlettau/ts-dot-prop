@@ -64,7 +64,7 @@ export function set(obj: object, path: string, value: any): void {
     const parts: string[] = getParts(path);
     const len: number = parts.length;
 
-    for (let i = 0; i < len; i++) {
+    for (let i: number = 0; i < len; i++) {
         const key: string = parts[i];
 
         if (i === (len - 1)) {
@@ -117,7 +117,7 @@ export function remove(obj: object, path: string): boolean {
     const parts: string[] = getParts(path);
     const len: number = parts.length;
 
-    for (let i = 0; i < len; i++) {
+    for (let i: number = 0; i < len; i++) {
         const key: string = parts[i];
 
         if (i === (len - 1)) {
