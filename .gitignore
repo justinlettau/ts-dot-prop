@@ -1,8 +1,9 @@
 # Editors
-.vs
-.vscode
 .idea
 .settings
+.vs
+.vscode
 
 # Other
+dist/
 node_modules/
