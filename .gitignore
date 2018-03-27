@@ -7,3 +7,4 @@
 # Other
 dist/
 node_modules/
+coverage/

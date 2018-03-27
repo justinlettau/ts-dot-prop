@@ -1,6 +1,7 @@
 [![NPM Version](https://badge.fury.io/js/ts-dot-prop.svg)](https://badge.fury.io/js/ts-dot-prop)
 [![Build Status](https://travis-ci.org/justinlettau/ts-dot-prop.svg?branch=master)](https://travis-ci.org/justinlettau/ts-dot-prop)
 [![Dev Dependency Status](https://david-dm.org/justinlettau/ts-dot-prop/dev-status.svg)](https://david-dm.org/justinlettau/ts-dot-prop?type=dev)
+[![codecov](https://codecov.io/gh/justinlettau/ts-dot-prop/branch/master/graph/badge.svg)](https://codecov.io/gh/justinlettau/ts-dot-prop)
 
 # ts-dot-prop
 TypeScript utility to transform nested objects using a dot notation path.

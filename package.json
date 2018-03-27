@@ -37,8 +37,9 @@
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
     "lint": "tslint -c ./tslint.json -p ./tsconfig.json",
-    "test": "jasmine JASMINE_CONFIG_PATH=jasmine.json",
-    "release": "standard-version"
+    "test": "nyc jasmine JASMINE_CONFIG_PATH=jasmine.json",
+    "release": "standard-version",
+    "posttest": "nyc report --reporter=json && codecov -f coverage/*.json"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.js",
@@ -48,6 +49,7 @@
   "devDependencies": {
     "@types/jasmine": "^2.6.0",
     "jasmine": "^2.8.0",
+    "nyc": "^11.6.0",
     "standard-version": "^4.3.0",
     "ts-node": "^3.3.0",
     "tslint": "^5.7.0",
