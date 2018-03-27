@@ -1,11 +1,11 @@
 import {
-    isArray,
-    isDefined,
-    isNull,
-    isObject,
-    isPlainObject,
-    isString,
-    isUndefined
+  isArray,
+  isDefined,
+  isNull,
+  isObject,
+  isPlainObject,
+  isString,
+  isUndefined
 } from 'ts-util-is';
 
 /**
@@ -21,32 +21,32 @@ const indexer: RegExp = /[0-9]+/;
  * @param value Optional default value to return if path is not found.
  */
 export function get(obj: object, path: string, value?: any): any {
-    const defaultValue: any = (isDefined(value) ? value : undefined);
+  const defaultValue: any = (isDefined(value) ? value : undefined);
 
-    if (!isObject(obj) || !isString(path)) {
-        return defaultValue;
+  if (!isObject(obj) || !isString(path)) {
+    return defaultValue;
+  }
+
+  const parts: string[] = getParts(path);
+
+  for (const key of parts) {
+    if (key === '*') {
+      // do nothing
+      continue;
     }
 
-    const parts: string[] = getParts(path);
-
-    for (const key of parts) {
-        if (key === '*') {
-            // do nothing
-            continue;
-        }
-
-        if (isArray(obj) && !indexer.test(key)) {
-            obj = obj.map(item => isUndefined(item) || isNull(obj) ? item : item[key]);
-        } else {
-            obj = obj[key];
-        }
-
-        if (isUndefined(obj) || isNull(obj)) {
-            break;
-        }
+    if (isArray(obj) && !indexer.test(key)) {
+      obj = obj.map(item => isUndefined(item) || isNull(obj) ? item : item[key]);
+    } else {
+      obj = obj[key];
     }
 
-    return isUndefined(obj) ? defaultValue : obj;
+    if (isUndefined(obj) || isNull(obj)) {
+      break;
+    }
+  }
+
+  return isUndefined(obj) ? defaultValue : obj;
 }
 
 /**
@@ -57,39 +57,39 @@ export function get(obj: object, path: string, value?: any): any {
  * @param value Value to set at path.
  */
 export function set(obj: object, path: string, value: any): void {
-    if (!isObject(obj) || !isString(path)) {
-        return;
+  if (!isObject(obj) || !isString(path)) {
+    return;
+  }
+
+  const parts: string[] = getParts(path);
+  const len: number = parts.length;
+
+  for (let i: number = 0; i < len; i++) {
+    const key: string = parts[i];
+
+    if (i === (len - 1)) {
+      // last part in path
+      obj[key] = value;
+      return;
     }
 
-    const parts: string[] = getParts(path);
-    const len: number = parts.length;
+    if (key === '*' && isArray(obj)) {
+      const remaining: string = parts.slice(i + 1).join('.');
 
-    for (let i: number = 0; i < len; i++) {
-        const key: string = parts[i];
+      // recurse to array objects
+      for (const item of obj) {
+        set(item, remaining, value);
+      }
 
-        if (i === (len - 1)) {
-            // last part in path
-            obj[key] = value;
-            return;
-        }
-
-        if (key === '*' && isArray(obj)) {
-            const remaining: string = parts.slice(i + 1).join('.');
-
-            // recurse to array objects
-            for (const item of obj) {
-                set(item, remaining, value);
-            }
-
-            return;
-        }
-
-        if (isUndefined(obj[key])) {
-            obj[key] = {};
-        }
-
-        obj = obj[key];
+      return;
     }
+
+    if (isUndefined(obj[key])) {
+      obj[key] = {};
+    }
+
+    obj = obj[key];
+  }
 }
 
 /**
@@ -99,8 +99,8 @@ export function set(obj: object, path: string, value: any): void {
  * @param path Dot notation string.
  */
 export function has(obj: object, path: string): boolean {
-    const value: any = get(obj, path);
-    return isDefined(value);
+  const value: any = get(obj, path);
+  return isDefined(value);
 }
 
 /**
@@ -110,29 +110,29 @@ export function has(obj: object, path: string): boolean {
  * @param path Dot notation string.
  */
 export function remove(obj: object, path: string): boolean {
-    if (!isObject(obj) || !isString(path)) {
-        return;
+  if (!isObject(obj) || !isString(path)) {
+    return;
+  }
+
+  const parts: string[] = getParts(path);
+  const len: number = parts.length;
+
+  for (let i: number = 0; i < len; i++) {
+    const key: string = parts[i];
+
+    if (i === (len - 1)) {
+      // last part in path
+      return delete obj[key];
     }
 
-    const parts: string[] = getParts(path);
-    const len: number = parts.length;
+    // todo (jbl): support wildcard [*]
 
-    for (let i: number = 0; i < len; i++) {
-        const key: string = parts[i];
+    obj = obj[key];
 
-        if (i === (len - 1)) {
-            // last part in path
-            return delete obj[key];
-        }
-
-        // todo (jbl): support wildcard [*]
-
-        obj = obj[key];
-
-        if (!isObject(obj)) {
-            return false;
-        }
+    if (!isObject(obj)) {
+      return false;
     }
+  }
 }
 
 /**
@@ -141,7 +141,7 @@ export function remove(obj: object, path: string): boolean {
  * @param obj Object to get paths for.
  */
 export function paths(obj: object): string[] {
-    return _paths(obj, []);
+  return _paths(obj, []);
 }
 
 /**
@@ -155,7 +155,7 @@ export function paths(obj: object): string[] {
  * @param path Dot notation string.
  */
 function getParts(path: string): string[] {
-    return path.split(/[\.]|(?:\[(\d|\*)\])/).filter(item => !!item);
+  return path.split(/[\.]|(?:\[(\d|\*)\])/).filter(item => !!item);
 }
 
 /**
@@ -165,29 +165,29 @@ function getParts(path: string): string[] {
  * @param lead Array of leading parts for the current iteration.
  */
 function _paths(obj: object, lead: string[]): string[] {
-    let output: string[] = [];
+  let output: string[] = [];
 
-    if (!isPlainObject(obj)) {
-        // non-plain (like arrays) objects not supported
-        return [];
+  if (!isPlainObject(obj)) {
+    // non-plain (like arrays) objects not supported
+    return [];
+  }
+
+  for (const key in obj) {
+    if (isUndefined(obj[key])) {
+      continue;
+    } else if (isPlainObject(obj[key])) {
+
+      // recurse to child object
+      lead.push(key);
+      output = output.concat(_paths(obj[key], lead));
+
+      // reset path lead for next object
+      lead = [];
+    } else {
+      const path: string = (lead.length ? `${lead.join('.')}.${key}` : key);
+      output.push(path);
     }
+  }
 
-    for (const key in obj) {
-        if (isUndefined(obj[key])) {
-            continue;
-        } else if (isPlainObject(obj[key])) {
-
-            // recurse to child object
-            lead.push(key);
-            output = output.concat(_paths(obj[key], lead));
-
-            // reset path lead for next object
-            lead = [];
-        } else {
-            const path: string = (lead.length ? `${lead.join('.')}.${key}` : key);
-            output.push(path);
-        }
-    }
-
-    return output;
+  return output;
 }
