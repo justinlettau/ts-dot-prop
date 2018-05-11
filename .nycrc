@@ -4,5 +4,8 @@
   ],
   "include": [
     "src/**/*.spec.ts"
+  ],
+  "require": [
+    "ts-node/register"
   ]
 }
