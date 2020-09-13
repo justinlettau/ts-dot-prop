@@ -1,6 +1,14 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [1.4.1](https://github.com/justinlettau/ts-dot-prop/compare/v1.4.0...v1.4.1) (2020-09-13)
+
+
+### Bug Fixes
+
+* prevent get/set problematic paths ([816b887](https://github.com/justinlettau/ts-dot-prop/commit/816b887))
+* **deps:** update dependency codecov to v3.6.5 [security] ([78b31b8](https://github.com/justinlettau/ts-dot-prop/commit/78b31b8))
 
 <a name="1.4.0"></a>
 # [1.4.0](https://github.com/justinlettau/ts-dot-prop/compare/v1.3.3...v1.4.0) (2017-09-26)
