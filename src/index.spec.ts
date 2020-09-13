@@ -17,7 +17,7 @@ describe('ts-dot-prop methods', () => {
         color: 'orange'
       }]
     };
-  })
+  });
 
   /**
    * Get
@@ -52,6 +52,11 @@ describe('ts-dot-prop methods', () => {
     expect(value).toEqual('not found');
   });
 
+  it('should prevent getting prototype', () => {
+    const value: any = dot.get(obj, '__proto__');
+    expect(value).toBeUndefined();
+  });
+
   /**
    * Set
    */
@@ -74,6 +79,13 @@ describe('ts-dot-prop methods', () => {
     dot.set(obj, 'fruit[*].color', 'Yellow');
     expect(obj.fruit[0].color).toEqual('Yellow');
     expect(obj.fruit[1].color).toEqual('Yellow');
+  });
+
+  it('should prevent setting prototype', () => {
+    dot.set({}, '__proto__.danger', 'fire');
+
+    const value: any = {};
+    expect(value.danger).not.toBe('fire');
   });
 
   /**

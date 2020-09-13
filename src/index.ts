@@ -14,6 +14,15 @@ import {
 const indexer: RegExp = /[0-9]+/;
 
 /**
+ * Disallowed keys.
+ */
+const disallowed: string[] = [
+  '__proto__',
+  'prototype',
+  'constructor'
+];
+
+/**
  * Get object property value.
  *
  * @param obj Object to get value from.
@@ -28,6 +37,10 @@ export function get(obj: object, path: string, value?: any): any {
   }
 
   const parts: string[] = getParts(path);
+
+  if (parts.length === 0) {
+    return;
+  }
 
   for (const key of parts) {
     if (key === '*') {
@@ -62,6 +75,11 @@ export function set(obj: object, path: string, value: any): void {
   }
 
   const parts: string[] = getParts(path);
+
+  if (parts.length === 0) {
+    return;
+  }
+
   const len: number = parts.length;
 
   for (let i: number = 0; i < len; i++) {
@@ -115,6 +133,11 @@ export function remove(obj: object, path: string): boolean {
   }
 
   const parts: string[] = getParts(path);
+
+  if (parts.length === 0) {
+    return;
+  }
+
   const len: number = parts.length;
 
   for (let i: number = 0; i < len; i++) {
@@ -155,7 +178,13 @@ export function paths(obj: object): string[] {
  * @param path Dot notation string.
  */
 function getParts(path: string): string[] {
-  return path.split(/[\.]|(?:\[(\d|\*)\])/).filter(item => !!item);
+  const parts: string[] = path.split(/[\.]|(?:\[(\d|\*)\])/).filter(item => !!item);
+
+  if (parts.some(x => disallowed.indexOf(x) !== -1)) {
+    return [];
+  }
+
+  return parts;
 }
 
 /**
