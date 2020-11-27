@@ -5,7 +5,7 @@ import {
   isObject,
   isPlainObject,
   isString,
-  isUndefined
+  isUndefined,
 } from 'ts-util-is';
 
 /**
@@ -16,11 +16,7 @@ const indexer: RegExp = /[0-9]+/;
 /**
  * Disallowed keys.
  */
-const disallowed: string[] = [
-  '__proto__',
-  'prototype',
-  'constructor'
-];
+const disallowed: string[] = ['__proto__', 'prototype', 'constructor'];
 
 /**
  * Get object property value.
@@ -30,7 +26,7 @@ const disallowed: string[] = [
  * @param value Optional default value to return if path is not found.
  */
 export function get(obj: object, path: string, value?: any): any {
-  const defaultValue: any = (isDefined(value) ? value : undefined);
+  const defaultValue: any = isDefined(value) ? value : undefined;
 
   if (!isObject(obj) || !isString(path)) {
     return defaultValue;
@@ -49,7 +45,9 @@ export function get(obj: object, path: string, value?: any): any {
     }
 
     if (isArray(obj) && !indexer.test(key)) {
-      obj = obj.map(item => isUndefined(item) || isNull(obj) ? item : item[key]);
+      obj = obj.map((item) =>
+        isUndefined(item) || isNull(obj) ? item : item[key]
+      );
     } else {
       obj = obj[key];
     }
@@ -85,7 +83,7 @@ export function set(obj: object, path: string, value: any): void {
   for (let i: number = 0; i < len; i++) {
     const key: string = parts[i];
 
-    if (i === (len - 1)) {
+    if (i === len - 1) {
       // last part in path
       obj[key] = value;
       return;
@@ -143,7 +141,7 @@ export function remove(obj: object, path: string): boolean {
   for (let i: number = 0; i < len; i++) {
     const key: string = parts[i];
 
-    if (i === (len - 1)) {
+    if (i === len - 1) {
       // last part in path
       return delete obj[key];
     }
@@ -178,9 +176,11 @@ export function paths(obj: object): string[] {
  * @param path Dot notation string.
  */
 function getParts(path: string): string[] {
-  const parts: string[] = path.split(/[\.]|(?:\[(\d|\*)\])/).filter(item => !!item);
+  const parts: string[] = path
+    .split(/[.]|(?:\[(\d|\*)\])/)
+    .filter((item) => !!item);
 
-  if (parts.some(x => disallowed.indexOf(x) !== -1)) {
+  if (parts.some((x) => disallowed.indexOf(x) !== -1)) {
     return [];
   }
 
@@ -205,7 +205,6 @@ function _paths(obj: object, lead: string[]): string[] {
     if (isUndefined(obj[key])) {
       continue;
     } else if (isPlainObject(obj[key])) {
-
       // recurse to child object
       lead.push(key);
       output = output.concat(_paths(obj[key], lead));
@@ -213,7 +212,7 @@ function _paths(obj: object, lead: string[]): string[] {
       // reset path lead for next object
       lead = [];
     } else {
-      const path: string = (lead.length ? `${lead.join('.')}.${key}` : key);
+      const path: string = lead.length ? `${lead.join('.')}.${key}` : key;
       output.push(path);
     }
   }

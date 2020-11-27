@@ -4,29 +4,35 @@
 [![codecov](https://codecov.io/gh/justinlettau/ts-dot-prop/branch/master/graph/badge.svg)](https://codecov.io/gh/justinlettau/ts-dot-prop)
 
 # ts-dot-prop
+
 TypeScript utility to transform nested objects using a dot notation path.
 
 # Installation
+
 ```
 npm install ts-dot-prop
 ```
 
 # Usage
+
 ```js
 import * as dot from 'ts-dot-prop';
 
 const obj = {
-    foo: 'bar',
-    state: {
-        name: 'New York'
+  foo: 'bar',
+  state: {
+    name: 'New York',
+  },
+  fruit: [
+    {
+      type: 'Apple',
+      color: 'red',
     },
-    fruit: [{
-        type: 'Apple',
-        color: 'red'
-    }, {
-        type: 'Mango',
-        color: 'orange'
-    }]
+    {
+      type: 'Mango',
+      color: 'orange',
+    },
+  ],
 };
 
 /**
@@ -86,5 +92,4 @@ dot.remove(obj, 'fruit[0].color');
  */
 dot.paths(obj);
 // => ['foo', 'state.name', 'fruit']
-
 ```

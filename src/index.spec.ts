@@ -7,15 +7,18 @@ describe('ts-dot-prop methods', () => {
     obj = {
       foo: 'bar',
       state: {
-        name: 'New York'
+        name: 'New York',
       },
-      fruit: [{
-        type: 'Apple',
-        color: 'red'
-      }, {
-        type: 'Mango',
-        color: 'orange'
-      }]
+      fruit: [
+        {
+          type: 'Apple',
+          color: 'red',
+        },
+        {
+          type: 'Mango',
+          color: 'orange',
+        },
+      ],
     };
   });
 
@@ -136,5 +139,4 @@ describe('ts-dot-prop methods', () => {
     const value: string[] = dot.paths({});
     expect(value).toEqual([]);
   });
-
 });
