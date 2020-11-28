@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.2](https://github.com/justinlettau/ts-dot-prop/compare/v1.4.1...v1.4.2) (2020-11-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency codecov to v3.7.1 [security] ([f21c549](https://github.com/justinlettau/ts-dot-prop/commit/f21c549f5161ec0d028d541bd2a76960cd08e4a5))
+
 ### [1.4.1](https://github.com/justinlettau/ts-dot-prop/compare/v1.4.0...v1.4.1) (2020-09-13)
 
 
