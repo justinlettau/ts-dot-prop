@@ -11,7 +11,7 @@ import {
 /**
  * Regex to test if a string is a valid array index key.
  */
-const indexer: RegExp = /[0-9]+/;
+const indexer: RegExp = /^[0-9]+$/;
 
 /**
  * Disallowed keys.
