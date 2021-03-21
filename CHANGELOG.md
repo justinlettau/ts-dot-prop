@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.3](https://github.com/justinlettau/ts-dot-prop/compare/v1.4.2...v1.4.3) (2021-03-21)
+
+
+### Bug Fixes
+
+* restrict indexer regexp ([68f4c23](https://github.com/justinlettau/ts-dot-prop/commit/68f4c2339c557f2e8cf96d5c805c6e2f88abad4a)), closes [#29](https://github.com/justinlettau/ts-dot-prop/issues/29)
+
 ### [1.4.2](https://github.com/justinlettau/ts-dot-prop/compare/v1.4.1...v1.4.2) (2020-11-28)
 
 
