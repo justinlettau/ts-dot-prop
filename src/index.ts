@@ -44,10 +44,20 @@ export function get(obj: object, path: string, value?: any): any {
       continue;
     }
 
+    const extractArray = function (arr: any[]) {
+      return arr.map((item) => {
+        if (isUndefined(item) || isNull(item)) {
+          return item;
+        } else if (isArray(item)) {
+          return extractArray(item);
+        } else {
+          return item[key];
+        }
+      });
+    };
+
     if (isArray(obj) && !indexer.test(key)) {
-      obj = obj.map((item) =>
-        isUndefined(item) || isNull(item) ? item : item[key]
-      );
+      obj = extractArray(obj);
     } else {
       obj = obj[key];
     }
