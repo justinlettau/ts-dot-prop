@@ -46,7 +46,7 @@ export function get(obj: object, path: string, value?: any): any {
 
     if (isArray(obj) && !indexer.test(key)) {
       obj = obj.map((item) =>
-        isUndefined(item) || isNull(obj) ? item : item[key]
+        isUndefined(item) || isNull(item) ? item : item[key]
       );
     } else {
       obj = obj[key];
