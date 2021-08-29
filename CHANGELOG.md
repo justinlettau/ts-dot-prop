@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/justinlettau/ts-dot-prop/compare/v1.4.3...v1.5.0) (2021-08-29)
+
+
+### Features
+
+* output esm ([cc954c8](https://github.com/justinlettau/ts-dot-prop/commit/cc954c81022b6945739052e041ac544cfb72181e))
+
 ### [1.4.3](https://github.com/justinlettau/ts-dot-prop/compare/v1.4.2...v1.4.3) (2021-03-21)
 
 
