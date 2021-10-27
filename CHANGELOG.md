@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/justinlettau/ts-dot-prop/compare/v1.5.1...v2.0.0) (2021-10-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* This package is now pure ESM
+
+### Features
+
+* esm package ([7622f81](https://github.com/justinlettau/ts-dot-prop/commit/7622f81a615212b0594b116515675dcab8636c76))
+
 ### [1.5.1](https://github.com/justinlettau/ts-dot-prop/compare/v1.5.0...v1.5.1) (2021-08-31)
 
 ## [1.5.0](https://github.com/justinlettau/ts-dot-prop/compare/v1.4.3...v1.5.0) (2021-08-29)
