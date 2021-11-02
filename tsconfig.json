@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "module": "commonjs",
+    "module": "ES2020",
     "moduleResolution": "node",
     "outDir": "dist",
     "sourceMap": true,
-    "target": "es5"
+    "target": "ES2019"
   },
   "include": ["index.ts"]
 }

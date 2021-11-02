@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://github.com/justinlettau/ts-dot-prop/compare/v2.0.0...v2.0.1) (2021-10-28)
+
+
+### Bug Fixes
+
+* module output ([ecb9ae5](https://github.com/justinlettau/ts-dot-prop/commit/ecb9ae55e3a3d19fe9f2a0b0b3918912229a4a59))
+
+## [2.0.0](https://github.com/justinlettau/ts-dot-prop/compare/v1.5.1...v2.0.0) (2021-10-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* This package is now pure ESM
+
+### Features
+
+* esm package ([7622f81](https://github.com/justinlettau/ts-dot-prop/commit/7622f81a615212b0594b116515675dcab8636c76))
+
+### [1.5.1](https://github.com/justinlettau/ts-dot-prop/compare/v1.5.0...v1.5.1) (2021-08-31)
+
+## [1.5.0](https://github.com/justinlettau/ts-dot-prop/compare/v1.4.3...v1.5.0) (2021-08-29)
+
+
+### Features
+
+* output esm ([cc954c8](https://github.com/justinlettau/ts-dot-prop/commit/cc954c81022b6945739052e041ac544cfb72181e))
+
 ### [1.4.3](https://github.com/justinlettau/ts-dot-prop/compare/v1.4.2...v1.4.3) (2021-03-21)
 
 

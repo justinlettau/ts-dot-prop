@@ -1,6 +1,6 @@
 {
   "name": "ts-dot-prop",
-  "version": "1.4.3",
+  "version": "2.0.1",
   "description": "TypeScript utility to transform nested objects using a dot notation path.",
   "keywords": [
     "access",
@@ -41,7 +41,11 @@
     "release": "standard-version",
     "format": "prettier --write ."
   },
-  "main": "dist/index.js",
+  "engines": {
+    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+  },
+  "type": "module",
+  "exports": "./dist/index.js",
   "types": "dist/index.d.js",
   "files": [
     "dist/"
@@ -52,20 +56,20 @@
     }
   },
   "devDependencies": {
-    "@types/jest": "^26.0.21",
-    "@typescript-eslint/eslint-plugin": "^4.18.0",
-    "@typescript-eslint/parser": "^4.18.0",
-    "eslint": "^7.22.0",
-    "eslint-config-prettier": "^8.1.0",
-    "jest": "^26.6.3",
-    "prettier": "^2.2.1",
-    "pretty-quick": "^3.1.0",
-    "standard-version": "^9.1.1",
-    "ts-jest": "^26.5.4",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.2.3"
+    "@types/jest": "^27.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.2.0",
+    "@typescript-eslint/parser": "^5.2.0",
+    "eslint": "^8.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "jest": "^27.3.1",
+    "prettier": "^2.4.1",
+    "pretty-quick": "^3.1.1",
+    "standard-version": "^9.3.2",
+    "ts-jest": "^27.0.7",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4"
   },
   "dependencies": {
-    "ts-util-is": "^1.2.1"
+    "ts-util-is": "^2.0.0"
   }
 }

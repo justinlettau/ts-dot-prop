@@ -99,7 +99,7 @@ export function set(obj: object, path: string, value: any): void {
       return;
     }
 
-    if (key === '*' && isArray(obj)) {
+    if (key === '*' && isArray<any>(obj)) {
       const remaining: string = parts.slice(i + 1).join('.');
 
       // recurse to array objects
