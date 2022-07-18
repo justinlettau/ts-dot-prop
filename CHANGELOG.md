@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/justinlettau/ts-dot-prop/compare/v2.0.1...v2.1.0) (2022-07-18)
+
+
+### Features
+
+* get nested array properties ([#33](https://github.com/justinlettau/ts-dot-prop/issues/33)) ([a26156b](https://github.com/justinlettau/ts-dot-prop/commit/a26156b43b4653e49e87d4f77f704e3db4975546))
+
 ### [2.0.1](https://github.com/justinlettau/ts-dot-prop/compare/v2.0.0...v2.0.1) (2021-10-28)
 
 
