@@ -7,5 +7,6 @@
     "sourceMap": true,
     "target": "ES2019"
   },
-  "include": ["index.ts"]
+  "include": ["src/"],
+  "exclude": ["src/**/*.spec.ts"]
 }
