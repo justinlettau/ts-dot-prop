@@ -26,10 +26,12 @@ const obj = {
     {
       type: 'Apple',
       color: 'red',
+      variety: [{ name: 'cox' }, { name: 'gala' }, { name: 'honeycrips' }],
     },
     {
       type: 'Mango',
       color: 'orange',
+      variety: [{ name: 'alice' }, { name: 'alphonso' }],
     },
   ],
 };
@@ -45,6 +47,9 @@ dot.get(obj, 'fruit[0].type');
 
 dot.get(obj, 'fruit[*].color');
 // => ['red', 'orange']
+
+dot.get(obj, 'fruit[*].variety[*].name');
+// => [['cox', 'gala', 'honeycrips'], ['alice', 'alphonso']]
 
 dot.get(obj, 'state.capital');
 // => undefined
