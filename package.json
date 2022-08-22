@@ -1,6 +1,6 @@
 {
   "name": "ts-dot-prop",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "TypeScript utility to transform nested objects using a dot notation path.",
   "keywords": [
     "access",
