@@ -8,6 +8,10 @@ describe('ts-dot-prop methods', () => {
       foo: 'bar',
       state: {
         name: 'New York',
+        people: {
+          population: 100
+        },
+        abbreviation: 'NY'
       },
       fruit: [
         {
@@ -149,7 +153,7 @@ describe('ts-dot-prop methods', () => {
    */
   it('should return an array of strings', () => {
     const value: string[] = dot.paths(obj);
-    expect(value).toEqual(['foo', 'state.name', 'fruit']);
+    expect(value).toEqual(['foo', 'state.name', 'state.people.population', 'state.abbreviation', 'fruit']);
   });
 
   it('should return an empty array', () => {
