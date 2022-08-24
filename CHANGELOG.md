@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.2](https://github.com/justinlettau/ts-dot-prop/compare/v2.1.1...v2.1.2) (2022-08-24)
+
+
+### Bug Fixes
+
+* build on prepublish ([75b53f2](https://github.com/justinlettau/ts-dot-prop/commit/75b53f23b9fdd514fcae9b844ef0e3afa93cf6b7))
+
 ### [2.1.1](https://github.com/justinlettau/ts-dot-prop/compare/v2.1.0...v2.1.1) (2022-08-22)
 
 
