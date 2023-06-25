@@ -39,7 +39,6 @@
     "lint": "eslint . --ext .js,.ts",
     "test": "jest",
     "prepublishOnly": "npm run build",
-    "release": "standard-version",
     "format": "prettier --write ."
   },
   "engines": {
