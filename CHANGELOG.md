@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.3](https://github.com/justinlettau/ts-dot-prop/compare/v2.1.2...v2.1.3) (2023-06-25)
+
+
+### Bug Fixes
+
+* sourcemap points to missing source files ([#59](https://github.com/justinlettau/ts-dot-prop/issues/59)) ([a00d8b3](https://github.com/justinlettau/ts-dot-prop/commit/a00d8b39e25b10ca4e5970dbc82e902d4db155c8)), closes [#58](https://github.com/justinlettau/ts-dot-prop/issues/58)
+
 ### [2.1.2](https://github.com/justinlettau/ts-dot-prop/compare/v2.1.1...v2.1.2) (2022-08-24)
 
 
