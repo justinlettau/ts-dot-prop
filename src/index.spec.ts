@@ -143,6 +143,11 @@ describe('ts-dot-prop methods', () => {
     expect(obj.state.name).toEqual(undefined);
   });
 
+  it('should create a dense array when romoving array value', () => {
+    dot.remove(obj, 'fruit[0]');
+    expect(obj.fruit[0].color).toEqual('orange');
+  });
+
   it('should remove array value', () => {
     dot.remove(obj, 'fruit[0].color');
     expect(obj.fruit[0].color).toEqual(undefined);
