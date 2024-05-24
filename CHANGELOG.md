@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.4](https://github.com/justinlettau/ts-dot-prop/compare/v2.1.3...v2.1.4) (2024-05-24)
+
+
+### Bug Fixes
+
+* remove should not produce sparse arrays ([#75](https://github.com/justinlettau/ts-dot-prop/issues/75)) ([cfa7cfa](https://github.com/justinlettau/ts-dot-prop/commit/cfa7cfa9b60f3ccdfa7a6813bd0e22e6f6eb354c))
+
 ## [2.1.3](https://github.com/justinlettau/ts-dot-prop/compare/v2.1.2...v2.1.3) (2023-06-25)
 
 
