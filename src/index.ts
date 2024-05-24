@@ -153,10 +153,16 @@ export function remove(obj: object, path: string): boolean {
 
     if (i === len - 1) {
       // last part in path
-      return delete obj[key];
-    }
 
-    // todo (jbl): support wildcard [*]
+      // todo (jbl): support wildcard [*]
+
+      if (isArray(obj) && !isNaN(+key)) {
+        obj.splice(+key, 1);
+        return true;
+      } else {
+        return delete obj[key];
+      }
+    }
 
     obj = obj[key];
 
